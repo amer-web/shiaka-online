@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @endsection
-@section('title','المنتجات')
+@section('title','المنتجات الرئيسية')
 @section('page-header')
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
