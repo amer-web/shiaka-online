@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::view('alpine', 'alpine');
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,4 +23,8 @@ Route::get('/dashboard', function () {
 Route::get('new', function(){
     return view('user');
 });
-require __DIR__.'/auth.php';
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
