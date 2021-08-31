@@ -40,7 +40,7 @@
                                     Checkout</a>
                             </li>
                             <li>
-                                <a href="account.html">
+                                <a href="{{route('login')}}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Login / Signup</a>
                             </li>
