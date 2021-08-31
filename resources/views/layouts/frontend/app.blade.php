@@ -41,7 +41,9 @@
 </head>
 <body>
     <div id="app">
+        @include('layouts.frontend.main-header')
         @yield('content')
+        @include('layouts.frontend.footer')
     </div>
 
 
