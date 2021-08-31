@@ -218,7 +218,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3">
-                    <div class="v-menu">
+                    <div class="v-menu v-close">
                         <span class="v-title">
                             <i class="ion ion-md-menu"></i>
                             All Categories
