@@ -3895,29 +3895,9 @@
         </div>
     </section>
     <!-- Site-Priorities /- -->
-  
-    <!-- Dummy Selectbox -->
-    <div class="select-dummy-wrapper">
-        <select id="compute-select">
-            <option id="compute-option">All</option>
-        </select>
-    </div>
-    <!-- Dummy Selectbox /- -->
-    <!-- Responsive-Search -->
-    <div class="responsive-search-wrapper">
-        <button type="button" class="button ion ion-md-close" id="responsive-search-close-button"></button>
-        <div class="responsive-search-container">
-            <div class="container">
-                <p>Start typing and press Enter to search</p>
-                <form class="responsive-search-form">
-                    <label class="sr-only" for="search-text">Search</label>
-                    <input id="search-text" type="text" class="responsive-search-field" placeholder="PLEASE SEARCH">
-                    <i class="fas fa-search"></i>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Responsive-Search /- -->
+
+    
+
     <!-- Newsletter-Modal -->
     <div id="newsletter-modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
@@ -3958,6 +3938,7 @@
         </div>
     </div>
     <!-- Newsletter-Modal /- -->
+
     <!-- Quick-view-Modal -->
     <div id="quick-view" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
