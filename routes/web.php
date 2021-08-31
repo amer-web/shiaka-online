@@ -14,14 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::view('alpine', 'alpine');
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-Route::get('new', function(){
-    return view('user');
+    return view('frontend.index');
 });
 
 
