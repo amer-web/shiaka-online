@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,9 @@ Route::view('alpine', 'alpine');
 Route::get('/', function () {
     return view('frontend.index');
 });
-
+Route::get('/test', function () {
+   return 'test';
+});
 
 Auth::routes();
 

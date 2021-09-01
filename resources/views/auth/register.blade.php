@@ -30,20 +30,46 @@
                             and history.</h6>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            <div class=" u-s-m-b-30">
-                                <label for="user-name">Username
+                            <div class="mb-3">
+                                <label for="first_name">Firts Name
                                     <span class="astk">*</span>
                                 </label>
-                                <input type="text" id="user-name" name="name" value="{{ old('name') }}"
-                                    class="text-field form-control @error('email') is-invalid @enderror"
-                                    placeholder="Username">
-                                @error('name')
+                                <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}"
+                                    class="text-field form-control @error('first_name') is-invalid @enderror"
+                                    placeholder="first name">
+                                @error('first_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                            <div class="u-s-m-b-30">
+                            <div class="mb-3">
+                                <label for="user-name">Last Name
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
+                                    class="text-field form-control @error('last_name') is-invalid @enderror"
+                                    placeholder="Last Name">
+                                @error('last_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="user-name">Username
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="text" id="user-name" name="username" value="{{ old('username') }}"
+                                    class="text-field form-control @error('username') is-invalid @enderror"
+                                    placeholder="Username">
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
                                 <label for="email">Email
                                     <span class="astk">*</span>
                                 </label>
@@ -56,7 +82,20 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="u-s-m-b-30">
+                            <div class="mb-3">
+                                <label for="email">Mobile
+                                    <span class="astk">*</span>
+                                </label>
+                                <input type="text" id="mobile" name="mobile" value="{{ old('mobile') }}"
+                                    class="text-field form-control @error('mobile') is-invalid @enderror"
+                                    placeholder="Mobile">
+                                @error('mobile')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
                                 <label for="password">Password
                                     <span class="astk">*</span>
                                 </label>
@@ -69,7 +108,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="u-s-m-b-30">
+                            <div class="mb-3">
                                 <label for="password2">Confirm Password
                                     <span class="astk">*</span>
                                 </label>
