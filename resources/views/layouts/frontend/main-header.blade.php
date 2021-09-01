@@ -24,6 +24,9 @@
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
                         <ul class="g-dropdown" style="width:200px">
+                            @auth
+                                <li class="border-bottom">Hi {{ auth()->user()->username }}</li>
+                            @endauth
                             <li>
                                 <a href="cart.html">
                                     <i class="fas fa-cog u-s-m-r-9"></i>
@@ -39,11 +42,19 @@
                                     <i class="far fa-check-circle u-s-m-r-9"></i>
                                     Checkout</a>
                             </li>
-                            <li>
-                                <a href="{{route('login')}}">
-                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                    Login / Signup</a>
-                            </li>
+                            @auth
+                                <li>
+                                    <a href="{{ route('login') }}">
+                                        <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                        SignOut</a>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ route('login') }}">
+                                        <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                        Login / Signup</a>
+                                </li>
+                            @endauth
                         </ul>
                     </li>
                     <li>

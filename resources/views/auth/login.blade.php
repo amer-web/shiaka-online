@@ -34,7 +34,7 @@
                                 <label for="user-name-email">Username or Email
                                     <span class="astk">*</span>
                                 </label>
-                                <input type="text" id="user-name-email" name="email" value="{{ old('email') }}"
+                                <input type="text" id="user-name-email" name="check" value="{{ old('email') }}"
                                     class="text-field form-control @error('email') is-invalid @enderror"
                                     placeholder="Username / Email">
                                 @error('email')
