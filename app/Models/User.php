@@ -22,7 +22,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -50,6 +49,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
+        'profile_photo_url','full_name'
     ];
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name ). ' ' . ucfirst($this->last_name);
+    }
 }

@@ -20,13 +20,18 @@
             <nav>
                 <ul class="secondary-nav g-nav">
                     <li>
-                        <a>My Account
+                        <a>
+                            @auth
+                            Hi, {{ auth()->user()->full_name }}
+                            @else
+                            My Account
+                            @endauth
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
                         <ul class="g-dropdown" style="width:200px">
-                            @auth
+                            {{-- @auth
                                 <li class="border-bottom">Hi {{ auth()->user()->username }}</li>
-                            @endauth
+                            @endauth --}}
                             <li>
                                 <a href="cart.html">
                                     <i class="fas fa-cog u-s-m-r-9"></i>
@@ -44,10 +49,14 @@
                             </li>
                             @auth
                                 <li>
-                                    <a href="{{ route('login') }}">
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('form-logout').submit()">
                                         <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                         SignOut</a>
                                 </li>
+                                <form action="{{ route('logout') }}" method="POST" id="form-logout"
+                                    class="d-none">
+                                    @csrf
+                                </form>
                             @else
                                 <li>
                                     <a href="{{ route('login') }}">
