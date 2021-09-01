@@ -24,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <!-- Login -->
-                <div class="col-lg-6">
+                <div class="col-lg-6 mx-auto">
                     <div class="login-wrapper">
                         <h2 class="account-h2 u-s-m-b-20">Login</h2>
                         <h6 class="account-h6 u-s-m-b-30">Welcome back! Sign in to your account.</h6>
@@ -75,45 +75,6 @@
                     </div>
                 </div>
                 <!-- Login /- -->
-                <!-- Register -->
-                <div class="col-lg-6">
-                    <div class="reg-wrapper">
-                        <h2 class="account-h2 u-s-m-b-20">Register</h2>
-                        <h6 class="account-h6 u-s-m-b-30">Registering for this site allows you to access your order status
-                            and history.</h6>
-                        <form>
-                            <div class="u-s-m-b-30">
-                                <label for="user-name">Username
-                                    <span class="astk">*</span>
-                                </label>
-                                <input type="text" id="user-name" class="text-field" placeholder="Username">
-                            </div>
-                            <div class="u-s-m-b-30">
-                                <label for="email">Email
-                                    <span class="astk">*</span>
-                                </label>
-                                <input type="text" id="email" class="text-field" placeholder="Email">
-                            </div>
-                            <div class="u-s-m-b-30">
-                                <label for="password">Password
-                                    <span class="astk">*</span>
-                                </label>
-                                <input type="text" id="password" class="text-field" placeholder="Password">
-
-                            </div>
-                            <div class="u-s-m-b-30">
-                                <input type="checkbox" class="check-box" id="accept">
-                                <label class="label-text no-color" for="accept">I’ve read and accept the
-                                    <a href="terms-and-conditions.html" class="u-c-brand">terms & conditions</a>
-                                </label>
-                            </div>
-                            <div class="u-s-m-b-45">
-                                <button class="button button-primary w-100">Register</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Register /- -->
             </div>
         </div>
     </div>
