@@ -24,7 +24,7 @@
 								<h4 class="card-title mb-1">بيانات اللغة</h4>
 							</div>
 							<div class="card-body pt-0">
-								<form action="{{route('admin.languages.store')}}" method="POST">
+								<form action="{{route('admin.languages.store')}}" method="POST" >
                                     @csrf
 									<div class="">
 										<div class="form-group">

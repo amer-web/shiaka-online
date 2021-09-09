@@ -92,7 +92,7 @@
                                 @enderror
                             </div>
                             <div class="custom-control custom-switch mt-3">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status"
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" {{old('status') == '1' ? 'checked' : ''}}  name="status"
                                     value="1">
                                 <label class="custom-control-label" for="customSwitch1">الحالة</label>
                             </div>

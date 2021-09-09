@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\LanguagesController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductCouponController;
+use App\Http\Controllers\Admin\ProductReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('admin.')->prefix('admin')->group(function () {
-    Route::get('/', [IndexController::class,'index'])->name('index');
+    Route::get('/', [IndexController::class, 'index'])->name('index');
     // Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     // Route::post('login', 'Auth\LoginController@login')->name('login');
     // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
@@ -26,8 +29,10 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::resource('languages', LanguagesController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
-    Route::middleware('auth:admin')->group(function () {
-        // Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-    });
+
+    // Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::resource('product_coupons', ProductCouponController::class);
+    Route::resource('product_reviews', ProductReviewController::class);
+    Route::resource('customers',CustomerController::class);
 
 });

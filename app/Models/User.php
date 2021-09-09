@@ -49,7 +49,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url','full_name'
+        'full_name'
     ];
 
     public function getFullNameAttribute()

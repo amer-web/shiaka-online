@@ -14,4 +14,8 @@ class Category extends Model implements TranslatableContract
     public $Filledimages = ['photo'];
     public $translatedAttributes = ['name','slug','description'];
 
+    public function products()
+    {
+        return $this->hasOne(Product::class);
+    }
 }

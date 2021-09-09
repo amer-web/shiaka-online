@@ -27,4 +27,6 @@ class LanguageSeeder extends Seeder
             'direction' => 'ltr',
         ]);
     }
+
+
 }
