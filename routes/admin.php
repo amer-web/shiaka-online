@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductCouponController;
 use App\Http\Controllers\Admin\ProductReviewController;
+use App\Http\Controllers\Admin\ShippingCompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,5 +35,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::resource('product_coupons', ProductCouponController::class);
     Route::resource('product_reviews', ProductReviewController::class);
     Route::resource('customers',CustomerController::class);
+    Route::resource('shipping_companies',ShippingCompanyController::class);
 
 });

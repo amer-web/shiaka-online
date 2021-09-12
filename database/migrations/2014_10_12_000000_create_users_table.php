@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('mobile')->unique();
-            $table->string('photo_path', 2048)->nullable();
-            $table->unsignedTinyInteger('status')->default(1);
+            $table->string('photo_path')->nullable();
+            $table->unsignedTinyInteger('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

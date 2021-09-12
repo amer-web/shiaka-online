@@ -26,7 +26,7 @@ class CreateUserAddressesTable extends Migration
             $table->string('address2')->nullable();
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
             $table->foreignId('state_id')->constrained('states')->cascadeOnDelete();
-            $table->foreignId('city_id')->constrained('cities')->nullOnDelete();
+            $table->foreignId('city_id')->constrained('cities');
             $table->string('zip_code')->nullable();
             $table->string('po_box')->nullable();
             $table->timestamps();
