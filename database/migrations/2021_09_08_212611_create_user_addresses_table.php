@@ -16,19 +16,16 @@ class CreateUserAddressesTable extends Migration
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('address_title')->default('Main');
+            $table->string('company_name')->nullable();
             $table->boolean('default_address')->default(false);
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('address')->nullable();
-            $table->string('address2')->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('mobile');
+            $table->string('address');
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
             $table->foreignId('state_id')->constrained('states')->cascadeOnDelete();
             $table->foreignId('city_id')->constrained('cities');
-            $table->string('zip_code')->nullable();
-            $table->string('po_box')->nullable();
+            $table->string('post_code')->nullable();
             $table->timestamps();
         });
     }

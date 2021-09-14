@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerAddressController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\LanguagesController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -36,5 +37,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::resource('product_reviews', ProductReviewController::class);
     Route::resource('customers',CustomerController::class);
     Route::resource('shipping_companies',ShippingCompanyController::class);
+    Route::post('customer_addresses/get_states',[CustomerAddressController::class,'get_states'])->name('customer_addresses.get_states');
+    Route::post('customer_addresses/get_cities',[CustomerAddressController::class,'get_cities'])->name('customer_addresses.get_cities');
+    Route::resource('customer_addresses',CustomerAddressController::class);
+    Route::get('customer_addresses/create/{id}',[CustomerAddressController::class,'create'])->name('customer_addresses.create');
 
 });
