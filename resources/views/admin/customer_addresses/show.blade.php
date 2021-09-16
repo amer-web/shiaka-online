@@ -62,10 +62,10 @@
                                     </td>
                                     <td>
                                         <a class="fa fa-edit fa-fw text-primary"
-                                           href="{{ route('admin.shipping_companies.edit', $customer_address->id) }}"></a>
+                                           href="{{ route('admin.customer_addresses.edit', $customer_address->id) }}"></a>
                                         <a href="" class="fa fa-trash fa-fw text-danger ml-1 delete_message"
-                                           data-title="حذف شركة الشحن"
-                                           data-description="هل تريد حذف شركة الشحن ؟"
+                                           data-title="حذف عنوان"
+                                           data-description="هل تريد حذف عنوان هذا العميل ؟"
                                            data-toggle="modal" data-target="#exampleModal"
                                            data-id="{{ $customer_address->id }}"></a>
                                     </td>
@@ -94,7 +94,7 @@
         $(function () {
             $('.delete_message').on('click', function () {
                 let idMessage = $(this).data('id');
-                $('#modelDelete').attr('action', 'shipping_companies/' + idMessage + '');
+                $('#modelDelete').attr('action', '/admin/customer_addresses/' + idMessage + '');
                 $("#exampleModalLabel").text($(this).data('title'));
                 $(".modal-body").text($(this).data('description'));
             });

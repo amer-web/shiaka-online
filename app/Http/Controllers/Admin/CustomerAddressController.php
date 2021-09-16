@@ -35,8 +35,7 @@ class CustomerAddressController extends Controller
      */
     public function index()
     {
-        $shipping_companies = $this->user_address->withCount('countries')->paginate(10);
-        return view('admin.customer_addresses.index', compact('shipping_companies'));
+        return redirect()->route('admin.customers.index');
     }
 
     /**
@@ -59,10 +58,11 @@ class CustomerAddressController extends Controller
      */
     public function store(CustomerAddressRequest $request)
     {
-       return $data = $request->except(['_token']);
+        $data = $request->except(['_token']);
+        $this->customer_address->first() ? true :$data = array_merge($data,['default_address' => 1]);
         $customer_address = $this->customer_address->create($data);
-        if($customer_address->default_address)
-            $this->customer_address->where('id','<>',$customer_address->id)->update(['default_address' => 0]);
+        if ($customer_address->default_address)
+            $this->customer_address->where('id', '<>', $customer_address->id)->update(['default_address' => 0]);
         return redirect()->route('admin.customer_addresses.show', $request->user_id)->with('success', 'تم أضافة العنوان بنجاح');
 
     }
@@ -75,9 +75,9 @@ class CustomerAddressController extends Controller
      */
     public function show($id)
     {
-       $customer_addresses = $this->user->with(['addresses' => function($q){
-          $q->with('state','country','city');
-      }])->findOrFail($id);
+        $customer_addresses = $this->user->with(['addresses' => function ($q) {
+            $q->with('state', 'country', 'city');
+        }])->findOrFail($id);
         return view('admin.customer_addresses.show', compact('customer_addresses'));
     }
 
@@ -89,9 +89,9 @@ class CustomerAddressController extends Controller
      */
     public function edit($id)
     {
-        $user_address = $this->user_address->with('countries')->findOrFail($id);
+        $customer_address = $this->customer_address->findOrFail($id);
         $countries = $this->country->get(['id', 'name']);
-        return view('admin.customer_addresses.edit', compact('user_address', 'countries'));
+        return view('admin.customer_addresses.edit', compact('customer_address', 'countries'));
     }
 
     /**
@@ -101,14 +101,17 @@ class CustomerAddressController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ShippingCompanyRequest $request, $id)
+    public function update(CustomerAddressRequest $request, $id)
     {
-        $user_address = $this->user_address->findOrFail($id);
-        $data = $request->except(['country_id', '_token', '_method']);
-        $data = array_merge($data, ['fast' => $request->input('fast', 0), 'status' => $request->input('status', 0)]);
-        $user_address->update($data);
-        $user_address->countries()->sync($request->country_id);
-        return redirect()->route('admin.customer_addresses.index')->with('success', 'تم تعديل شركة الشحن بنجاح');
+        $customer_address = $this->customer_address->findOrFail($id);
+        $data = $request->except(['_token', '_method']);
+        $data = array_merge($data, ['default_address' => $request->input('default_address', 0)]);
+        $customer_address->update($data);
+        if ($customer_address->default_address)
+            $this->customer_address->where('id', '<>', $customer_address->id)->update(['default_address' => 0]);
+        else
+            $this->customer_address->orderBy('created_at', 'desc')->first()->update(['default_address' => 1]);
+        return redirect()->route('admin.customer_addresses.show', $request->user_id)->with('success', 'تم تعديل العنوان بنجاح');
     }
 
     /**
@@ -119,9 +122,14 @@ class CustomerAddressController extends Controller
      */
     public function destroy($id)
     {
-        $user_address = $this->user_address->findOrFail($id);
-        $user_address->delete();
-        return redirect()->route('admin.customer_addresses.index')->with('success', 'تم حذف شركة الشحن بنجاح');
+        $customer_address = $this->customer_address->findOrFail($id);
+        if ($customer_address->default_address)
+        {
+            $default_address  = $this->customer_address->where('id', '<>', $customer_address->id)->orderBy('created_at', 'desc')->first();
+            $default_address ? $default_address->update(['default_address' => 1]) : false;
+        }
+        $customer_address->delete();
+        return redirect()->back()->with('success', 'تم حذف العنوان بنجاح');
     }
 
     public function get_states(Request $request)

@@ -4,13 +4,13 @@
     <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 
 @endsection
-@section('title', 'تعديل شركة شحن')
+@section('title', 'تعديل عنوان')
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">شركات الشحن</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">> تعديل شركة شحن</span>
+                <h4 class="content-title mb-0 my-auto">عناوين العملاء</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">> تعديل العنوان للعميل {{$customer_address->user->full_name}}</span>
             </div>
         </div>
     </div>
@@ -22,63 +22,68 @@
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">بيانات شركة الشحن</h4>
+                    <h4 class="card-title mb-1">بيانات العنوان </h4>
                 </div>
                 <div class="card-body pt-0">
-                    <form action="{{route('admin.shipping_companies.update',$shipping_company->id)}}" method="POST">
+                    <form action="{{route('admin.customer_addresses.update',$customer_address->id)}}" method="POST">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="id" value="{{$shipping_company->id}}">
+                        <input type="hidden" name="user_id" value="{{$customer_address->user->id}}">
                         <div class="">
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label for="exampleInputEmail1">اسم شركة الشحن</label>
-                                    <input type="text" class="form-control" name="name" id="exampleInputEmail1"
-                                           placeholder="" value="{{old('name',$shipping_company->name)}}">
-                                    @error('name')
+                                    <label for="exampleInputCompanyName">اسم الشركة</label>
+                                    <input type="text" class="form-control" name="company_name"
+                                           id="exampleInputCompanyName"
+                                           placeholder=""
+                                           value="{{old('company_name',$customer_address->company_name)}}">
+                                    @error('company_name')
                                     <span class="text-danger">
                                                 {{$message}}
                                             </span>
                                     @enderror
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label for="exampleInputEmail1">الكود</label>
-                                    <input type="text" class="form-control" name="code" id="exampleInputEmail1"
-                                           placeholder="" value="{{old('code',$shipping_company->code)}}">
-                                    @error('code')
+                                    <label for="exampleInputFirstName">الاسم الأول</label>
+                                    <input type="text" class="form-control" name="first_name" id="exampleInputFirstName"
+                                           placeholder="" value="{{old('first_name',$customer_address->first_name)}}">
+                                    @error('first_name')
                                     <span class="text-danger">
                                                 {{$message}}
                                             </span>
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">التكلفة</label>
-                                <input type="text" class="form-control" name="cost" id="exampleInputPassword1" value="{{old('cost',$shipping_company->cost)}}"
-                                >
-                                @error('cost')
-                                <span class="text-danger">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputLastName">اسم العائلة</label>
+                                    <input type="text" class="form-control" name="last_name" id="exampleInputLastName"
+                                           placeholder="" value="{{old('last_name',$customer_address->last_name)}}">
+                                    @error('last_name')
+                                    <span class="text-danger">
                                                 {{$message}}
                                             </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">الوصف</label>
-                                <input type="text" class="form-control" name="description" id="exampleInputPassword1" value="{{old('description',$shipping_company->description)}}"
-                                >
-                                @error('description')
-                                <span class="text-danger">
+                                    @enderror
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputMobile">الموبايل</label>
+                                    <input type="text" class="form-control" name="mobile" id="exampleInputMobile"
+                                           placeholder="" value="{{old('mobile',$customer_address->mobile)}}">
+                                    @error('mobile')
+                                    <span class="text-danger">
                                                 {{$message}}
                                             </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
                             <div class="">
                                 <div class="mg-b-20 mg-lg-b-0">
-                                    <p class="mg-b-10">الدول</p><select class="form-control select2 " name="country_id[]" multiple="multiple" >
+                                    <p class="mg-b-10">الدولة</p><select class="form-control select2 country"
+                                                                         name="country_id">
+                                        <option></option>
                                         @foreach($countries as $country)
                                             <option
-                                                value="{{$country->id}}" {{in_array($country->id,old('country_id',$shipping_company->countries->pluck('id')->toArray())) ? 'selected' : ''}}>
+                                                value="{{$country->id}}" {{old('country_id',$customer_address->country_id) == $country->id? 'selected' : ''}}>
                                                 {{$country->name}}
                                             </option>
                                         @endforeach
@@ -90,16 +95,60 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mt-3">
+                                <div class="form-group col-sm-6">
+                                    <p class="mg-b-10">المنطقة</p><select class="form-control select2 state"
+                                                                          name="state_id">
+                                    </select>
+                                    @error('state_id')
+                                    <span class="text-danger">
+                                                {{$message}}
+                                            </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <p class="mg-b-10">المدينة</p>
+                                    <select class="form-control select2 city"
+                                            name="city_id">
+
+                                    </select>
+                                    @error('city_id')
+                                    <span class="text-danger">
+                                                {{$message}}
+                                            </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputAddress">عنوان السكن</label>
+                                    <input type="text" class="form-control" name="address" id="exampleInputAddress"
+                                           placeholder="" value="{{old('address',$customer_address->address)}}">
+                                    @error('address')
+                                    <span class="text-danger">
+                                                {{$message}}
+                                            </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputEmail1">الرمز البريدى</label>
+                                    <input type="text" class="form-control" name="post_code" id="exampleInputEmail1"
+                                           placeholder="" value="{{old('post_code',$customer_address->post_code)}}">
+                                    @error('post_code')
+                                    <span class="text-danger">
+                                                {{$message}}
+                                            </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="row mt-2">
                                 <div class="custom-control custom-switch mt-3 col-6">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="fast"
-                                           value="1" {{old('fast',$shipping_company->fast) ? 'checked' : ''}}>
-                                    <label class="custom-control-label tx-16" for="customSwitch1">سريع الشحن</label>
-                                </div>
-                                <div class="custom-control custom-switch mt-3 col-6">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch2" name="status"
-                                           value="1" {{old('status',$shipping_company->status) ? 'checked' : ''}}>
-                                    <label class="custom-control-label tx-16" for="customSwitch2">الحالة</label>
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1"
+                                           name="default_address"
+                                           value="1" {{old('default_address',$customer_address->default_address) ? 'checked' : ''}}>
+                                    <label class="custom-control-label tx-16" for="customSwitch1">العنوان
+                                        الافتراضي</label>
                                 </div>
                             </div>
 
@@ -122,7 +171,77 @@
     <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
     <script>
         $(function () {
-            $('.select2').select2();
+            let pluginSelect2 = function (selector, placeholder) {
+                $(selector).select2({
+                    placeholder: placeholder,
+                });
+            }
+            pluginSelect2('.country', 'أختر الدولة');
+            pluginSelect2('.state', 'أختر المحافظة');
+            pluginSelect2('.city', 'أختر المدينة');
+            get_state();
+            get_cities();
+
+
+            function get_state() {
+                let id = $('.country').val();
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('admin.customer_addresses.get_states') }}",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'id': id
+                    },
+                    success: function (data, two) {
+                        if (two === 'success') {
+                            $('.state').children().remove();
+                            $('.city').children().remove();
+                            $('.state').append('<option></option>');
+                            $.each(data, function (val, text) {
+                                let selection = text.id == '{{old('state_id',$customer_address->state_id)}}' ? 'selected' : '';
+                                $('.state').append('<option value="' + text.id + '" ' + selection + '>' + text.name + '</option>');
+                                text.id == '{{old('state_id',$customer_address->state_id)}}' ? get_cities() : '';
+                            })
+                        } else {
+                        }
+                    }
+                });
+            }
+
+            function get_cities() {
+                let id = $('.state').val() ?? "{{old('state_id',$customer_address->state_id)}}";
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('admin.customer_addresses.get_cities') }}",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'id': id
+                    },
+                    success: function (data, two) {
+                        if (two === 'success') {
+                            $('.city').children().remove();
+                            $('.city').append('<option></option>');
+                            $.each(data, function (val, text) {
+                                let selection = text.id == '{{old('city_id',$customer_address->city_id)}}' ? 'selected' : '';
+                                $('.city').append('<option value="' + text.id + '" ' + selection + '>' + text.name + '</option>');
+                            })
+
+                        } else {
+                        }
+                    }
+                });
+            }
+
+            $('.card-body').on('change', '.country', function () {
+                get_state();
+            });
+            $('.card-body').on('change', '.state', function () {
+                get_cities();
+            });
+
+
         });
+
+
     </script>
 @endsection
