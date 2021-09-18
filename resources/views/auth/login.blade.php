@@ -28,7 +28,7 @@
                     <div class="login-wrapper">
                         <h2 class="account-h2 u-s-m-b-20">Login</h2>
                         <h6 class="account-h6 u-s-m-b-30">Welcome back! Sign in to your account.</h6>
-                        <form form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="u-s-m-b-30">
                                 <label for="user-name-email">Username or Email

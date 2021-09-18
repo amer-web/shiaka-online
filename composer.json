@@ -7,7 +7,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "astrotomic/laravel-translatable": "^11.9",
+<<<<<<< HEAD
         "beyondcode/laravel-websockets": "^1.12",
+=======
+        "cviebrock/eloquent-sluggable": "^8.0",
+>>>>>>> 4cc0fdf4963698c3b557caa4c42c821eda32f0d2
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

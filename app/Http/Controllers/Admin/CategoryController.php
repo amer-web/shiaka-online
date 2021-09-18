@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\MySlugHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
@@ -36,7 +37,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->get()->toTree();
+         $categories = $this->category->get()->toTree();
         return view('admin.categories.create', compact('categories'));
     }
 
@@ -51,9 +52,6 @@ class CategoryController extends Controller
         try {
             $data = $request->data;
             DB::beginTransaction();
-            foreach ($data as $code => $val) {
-                $data[$code]['slug'] = Str::slug($val['name']);
-            }
             $data['status'] = $request->input('status', 0);
             $data['position'] = $request->input('position');
             $category = $this->category->create($data);
@@ -109,9 +107,7 @@ class CategoryController extends Controller
             $category = $this->category->findOrFail($id);
             $data = $request->data;
             DB::beginTransaction();
-            foreach ($data as $code => $val) {
-                $data[$code]['slug'] = Str::slug($val['name']);
-            }
+            
             $data['status'] = $request->input('status', 0);
             $data['position'] = $request->input('position');
             $category->update($data);
