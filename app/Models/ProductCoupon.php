@@ -10,4 +10,15 @@ class ProductCoupon extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public function getStartDateAttribute($value)
+    {
+        return date_create($value)->format('Y-m-d');
+
+    }
+    public function getExpireDateAttribute($value)
+    {
+        return date_create($value)->format('Y-m-d');
+
+    }
+
 }

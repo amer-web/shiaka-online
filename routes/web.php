@@ -2,6 +2,7 @@
 
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::view('alpine', 'alpine');
-Route::get('/', function () {
-    return view('frontend.index');
+Route::prefix(LaravelLocalization::setLocale())->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])->group(function () {
+    Route::get('/', function () {
+        return view('frontend.index');
+    });
 });
+
+
 Route::get('/test', function () {
-   return 'test';
+    return 'test';
 });
 
 Auth::routes();

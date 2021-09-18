@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}" dir="{{LaravelLocalization::getCurrentLocaleDirection()}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +27,8 @@
     <link rel="stylesheet" href="{{asset('assets-frontend/css/ionicons.min.css')}}">
     <!-- Animate CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('assets-frontend/css/animate.min.css')}}">
+    <link href="{{ asset('assets-frontend/css/bootstrap-'.LaravelLocalization::getCurrentLocaleDirection().'.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets-frontend/css/animate-'.LaravelLocalization::getCurrentLocaleDirection().'.min.css')}}">
     <!-- Owl-Carousel -->
     <link rel="stylesheet" href="{{asset('assets-frontend/css/owl.carousel.min.css')}}">
     <!-- Jquery-Ui-Range-Slider -->
@@ -35,7 +36,7 @@
     <!-- Utility -->
     <link rel="stylesheet" href="{{asset('assets-frontend/css/utility.css')}}">
     <!-- Main -->
-    <link rel="stylesheet" href="{{asset('assets-frontend/css/bundle.css')}}">
+    <link rel="stylesheet" href="{{asset('assets-frontend/css/bundle-'.LaravelLocalization::getCurrentLocaleDirection().'.css')}}">
     <!-- Styles -->
 
 </head>

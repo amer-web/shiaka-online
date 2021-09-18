@@ -355,6 +355,7 @@ $(function () {
         let $owl = $('.slider-main');
         $owl.owlCarousel({
             items: 1,
+            rtl:true,
             autoplay: true,
 			autoplayTimeout: 8000,
             loop: false,
@@ -382,6 +383,7 @@ $(function () {
             thisInstance.owlCarousel({
                 autoplay: false,
                 loop: false,
+                rtl:true,
                 dots: false,
                 rewind: true,
                 nav: true,
@@ -419,6 +421,7 @@ $(function () {
             thisInstance.owlCarousel({
                 autoplay: false,
                 loop: false,
+                rtl:true,
                 dots: false,
                 rewind: true,
                 nav: true,
@@ -466,6 +469,7 @@ $(function () {
         let itemPerLine = thisInstance.data('item');
         thisInstance.owlCarousel({
             autoplay: true,
+            rtl:true,
 			autoplayTimeout: 8000,
             loop: false,
             dots: false,

@@ -80,16 +80,16 @@
                         </ul>
                     </li>
                     <li>
-                        <a>ENG
+                        <a>{{LaravelLocalization::getCurrentLocaleNative()}}
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
                         <ul class="g-dropdown" style="width:70px">
+                            @foreach($languages as $language)
                             <li>
-                                <a href="#" class="u-c-brand">ENG</a>
+                                <a href="{{LaravelLocalization::getLocalizedURL($language->abbr, null, [], true)}}" class=" {{LaravelLocalization::getCurrentLocale() == $language->abbr ? 'u-c-brand' : ''}} ">{{$language->name}}</a>
                             </li>
-                            <li>
-                                <a href="#">ARB</a>
-                            </li>
+
+                            @endforeach
                         </ul>
                 </ul>
             </nav>

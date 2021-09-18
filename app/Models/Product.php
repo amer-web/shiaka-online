@@ -12,6 +12,12 @@ class Product extends Model implements TranslatableContract
     use HasFactory, Translatable;
     public $translatedAttributes = ['name','slug','description'];
     public $guarded = [];
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
