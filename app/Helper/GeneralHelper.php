@@ -49,26 +49,7 @@ function matchUrl($routeName)
 {
     return Route::currentRouteName() == $routeName ? 'javascript:void(0)' : route($routeName);
 }
-//function setCrypt($data)
-//{
-//    $cipher     = 'AES-256-CBC';
-//    $options    = 0;
-//    $encryption_key = 'halasayed';
-////   $ivlen = openssl_cipher_iv_length($cipher);
-//    $iv = 'amer123456789123';
-//    $ciphertext_raw = openssl_encrypt($data, $cipher, $encryption_key,0,$iv);
-//    return base64_encode($ciphertext_raw);
-//}
-//
-//function getDecrypt($data)
-//{
-//    $cipher     = 'AES-256-CBC';
-//    $options    = 0;
-//    $encryption_key = 'halasayed';
-//    $ivlen = openssl_cipher_iv_length($cipher);
-//    $iv = 'amer123456789123';
-//    return $ciphertext_raw = openssl_decrypt($data, $cipher, $encryption_key,0,$iv);
-//}
+
 function encryptor($action, $string) {
     $output = FALSE;
     $encrypt_method = "AES-256-CBC";
