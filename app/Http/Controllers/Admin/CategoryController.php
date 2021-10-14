@@ -6,27 +6,39 @@ use App\Helper\MySlugHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use App\Models\City;
-use App\Models\Country;
-use App\Models\State;
-use Illuminate\Support\Str;
+use App\Models\Order;
+use App\Models\OrderTransaction;
+use Carbon\Carbon;
+use http\Client;
+use http\Client\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\URL;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 
 class CategoryController extends Controller
 {
     protected $category;
+
     public function __construct(Category $category)
     {
         $this->category = $category;
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return
      */
     public function index()
     {
-        $categories = $this->category->where('parent_id', '<>', null)->orderBy('position', 'asc')->get()->toTree();
+
+        $categories = $this->category->withCount('products')->with(['translation', 'parent' => function ($q) {
+            $q->with('translation');
+        }])->where('parent_id', '<>', null)->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -37,14 +49,14 @@ class CategoryController extends Controller
      */
     public function create()
     {
-         $categories = $this->category->get()->toTree();
+        $categories = $this->category->with('translation')->get()->toTree();
         return view('admin.categories.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request)
@@ -52,8 +64,7 @@ class CategoryController extends Controller
         try {
             $data = $request->data;
             DB::beginTransaction();
-            $data['status'] = $request->input('status', 0);
-            $data['position'] = $request->input('position');
+            $data = array_merge($data, ['status' => $request->input('status', 0), 'position' => $request->input('position')]);
             $category = $this->category->create($data);
             $parent = $this->category->find($request->parent_id);
             $parent->appendNode($category);
@@ -70,7 +81,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -81,7 +92,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -89,15 +100,15 @@ class CategoryController extends Controller
         $editCategory = $this->category->findOrFail($id);
         if (!$editCategory->parent_id)
             return redirect()->route('admin.categories.index')->with('warning', 'لايمكن التعديل على هذا القسم');
-        $categories = $this->category->where('id', '!=', $id)->whereNotDescendantOf($id)->get()->toTree();
+        $categories = $this->category->with('translations')->where('id', '!=', $id)->whereNotDescendantOf($id)->get()->toTree();
         return view('admin.categories.edit', compact('editCategory', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, $id)
@@ -107,9 +118,7 @@ class CategoryController extends Controller
             $category = $this->category->findOrFail($id);
             $data = $request->data;
             DB::beginTransaction();
-            
-            $data['status'] = $request->input('status', 0);
-            $data['position'] = $request->input('position');
+            $data = array_merge($data, ['status' => $request->input('status', 0), 'position' => $request->input('position')]);
             $category->update($data);
             $parent = $this->category->find($request->parent_id);
             $parent->appendNode($category);
@@ -126,13 +135,16 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $category = $this->category->findOrFail($id);
+        $category->delete();
+        return redirect()->route('admin.categories.index')->with('success', 'تم حذف القسم بنجاح');
     }
+
     public function upload_image($category)
     {
         if (request()->file()) {
@@ -142,7 +154,7 @@ class CategoryController extends Controller
                     unlink($deleteImage);
                 }
                 $image = request()->file($name)->store('categories', 'images');
-                $path = 'images/'  . $image;
+                $path = 'images/' . $image;
                 $category->{$name} = $path;
                 $category->save();
             }

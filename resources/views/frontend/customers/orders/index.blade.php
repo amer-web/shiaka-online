@@ -10,6 +10,9 @@
         .title-name a.current {
             color: red;
         }
+        .badge.bg-dark{
+            color: white !important;
+        }
     </style>
 
 @endsection
@@ -61,8 +64,8 @@
                                     @forelse ($orders as $order)
                                         <tr>
                                             <th>{{$order->ref_id}}</th>
-                                            <th>{{$order->total }}</th>
-                                            <td>{{$order->order_status}}</td>
+                                            <th>{{ $order->paymentCurrencySymbol() . ' ' . round($order->total * $order->rating_default_currency,2) }}</th>
+                                            <td>{!! $order->status() !!}</td>
                                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
                                                 <a class="fa fa-eye fa-fw text-primary"

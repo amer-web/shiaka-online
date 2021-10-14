@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Language;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,10 +26,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         Schema::defaultStringLength(191);
 
-            $languages = Language::activation()->get();
-            view()->share('languages', $languages);
+        $languages = Language::activation()->get();
+        $currencies = currency()->getCurrencies();
+
+        view()->share(['languages'=> $languages,'currencies' => $currencies]);
 
     }
+
 }

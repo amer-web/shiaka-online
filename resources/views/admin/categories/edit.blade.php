@@ -8,14 +8,15 @@
         .tree-container .tree-item {
             padding-right: 30px;
 
-            .expand-icon,
-            .folder-icon {
-                margin-left: 10px;
-                margin-right: 0px;
-            }
+        .expand-icon,
+        .folder-icon {
+            margin-left: 10px;
+            margin-right: 0px;
         }
 
-        .tree-container>.tree-item {
+        }
+
+        .tree-container > .tree-item {
             padding-right: 0px;
         }
 
@@ -31,7 +32,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الاقسام الرئيسية</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">>
+                <h4 class="content-title mb-0 my-auto">الاقسام الرئيسية</h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">>
                     تعديل قسم</span>
             </div>
         </div>
@@ -48,7 +50,7 @@
                 </div>
                 <div class="card-body pt-0">
                     <form action="{{ route('admin.categories.update', $editCategory->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                          enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="text-center mb-3">
@@ -56,7 +58,7 @@
                         </div>
                         <input type="file" name="photo" id="">
                         @error('photo')
-                            <span class="text-danger d-block">
+                        <span class="text-danger d-block">
                                 {{ $message }}
                             </span>
                         @enderror
@@ -65,21 +67,23 @@
                             @foreach ($editCategory->translations as $editCategoryTrans)
                                 <label for="exampleInputEmail1" class="d-block mt-3">
                                     {{ __('admin.title-category', ['code' => __('admin.' . $editCategoryTrans->locale)]) }}</label>
-                                <input type="text" class="form-control" name="data[{{ $editCategoryTrans->locale }}][name]"
-                                    id="exampleInputEmail1"
-                                    value="{{ old("data.$editCategoryTrans->locale.name", $editCategoryTrans->name) }}">
+                                <input type="text" class="form-control"
+                                       name="data[{{ $editCategoryTrans->locale }}][name]"
+                                       id="exampleInputEmail1"
+                                       value="{{ old("data.$editCategoryTrans->locale.name", $editCategoryTrans->name) }}">
                                 @error("data.$editCategoryTrans->locale.name")
-                                    <span class="text-danger">
+                                <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                 @enderror
                                 <div class="control-group">
-                                    <label class="mt-3">الوصف باللغة {{ __("admin.$editCategoryTrans->locale") }}</label>
+                                    <label class="mt-3">الوصف
+                                        باللغة {{ __("admin.$editCategoryTrans->locale") }}</label>
                                     <textarea class="control"
-                                        name="data[{{ $editCategoryTrans->locale }}][description]">{{ old("data.$editCategoryTrans->locale.description", $editCategoryTrans->description) }}</textarea>
+                                              name="data[{{ $editCategoryTrans->locale }}][description]">{{ old("data.$editCategoryTrans->locale.description", $editCategoryTrans->description) }}</textarea>
                                 </div>
                                 @error("data.$editCategoryTrans->locale.description")
-                                    <span class="text-danger">
+                                <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                 @enderror
@@ -96,20 +100,22 @@
                                     </select>
                                 </div>
                             </div> --}}
-                            <tree-view value-field="id" name-field="parent_id" input-type="radio" items='@json($categories)' value='@json($editCategory->parent_id)' fallback-locale="{{ config('app.fallback_locale') }}"></tree-view>
+                            <tree-view value-field="id" name-field="parent_id" input-type="radio"
+                                       items='@json($categories)' value='@json($editCategory->parent_id)'
+                                       fallback-locale="{{ config('app.fallback_locale') }}"></tree-view>
                             <div>
                                 <label class="d-block mt-3" for="exampleInputEmail1">ترتيبه فى القوائم </label>
                                 <input type="text" class="form-control" name="position" id="exampleInputEmail1"
-                                    value="{{ old('position', $editCategory->position) }}">
+                                       value="{{ old('position', $editCategory->position) }}">
                                 @error('position')
-                                    <span class="text-danger">
+                                <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                 @enderror
                             </div>
                             <div class="custom-control custom-switch mt-3">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status"
-                                    value="1" {{ $editCategory->status == 1 ? 'checked' : '' }}>
+                                       value="1" {{ $editCategory->status == 1 ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="customSwitch1">الحالة</label>
                             </div>
                         </div>
@@ -136,7 +142,7 @@
         $('.select2-no-search').select2({
             minimumResultsForSearch: Infinity,
         });
-        $(document).ready(function() {
+        $(document).ready(function () {
             tinymce.init({
                 selector: 'textarea',
                 height: 150,

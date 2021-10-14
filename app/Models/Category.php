@@ -11,17 +11,26 @@ use Kalnoy\Nestedset\NodeTrait;
 class Category extends Model implements TranslatableContract
 {
     use Translatable, NodeTrait;
+
     protected $guarded = [];
 
     public $Filledimages = ['photo'];
     public $translatedAttributes = ['name', 'slug', 'description'];
 
-<<<<<<< HEAD
+    public function status()
+    {
+        return $this->status ? 'مفعل' : 'غير مفعل';
+    }
+
+    public function getAllProducts()
+    {
+        return Category::withCount('products')->descendantsAndSelf($this->id)->sum('products_count');
+    }
+
     public function products()
     {
-        return $this->hasOne(Product::class);
+        return $this->hasMany(Product::class);
     }
-=======
-    
->>>>>>> 4cc0fdf4963698c3b557caa4c42c821eda32f0d2
+
+
 }

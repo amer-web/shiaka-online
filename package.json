@@ -17,11 +17,8 @@
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
         "jquery": "^3.6",
-<<<<<<< HEAD
         "laravel-echo": "^1.11.2",
-=======
         "laravel-elixir-vue-2": "^0.3.0",
->>>>>>> 4cc0fdf4963698c3b557caa4c42c821eda32f0d2
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "popper.js": "^1.16.1",

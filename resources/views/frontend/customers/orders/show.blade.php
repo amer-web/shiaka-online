@@ -43,46 +43,145 @@
                 <!-- Shop-Left-Side-Bar-Wrapper -->
                 @include('frontend.customers.sidebar')
                 <div class="col-lg-10 col-md-10 col-sm-12">
-                    <div class="card">
+                    <div class="order-table">
+                        <table class="u-s-m-b-13">
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($order->products as $item)
+                                <tr>
+                                    <td>
+                                        <h6 class="order-h6">{{$item->name}}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="order-h6">{{$order->paymentCurrencySymbol()}} {{number_format($item->price * $order->rating_default_currency,2)}}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="order-h6">{{$item->pivot->qty}}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="order-h6">{{$order->paymentCurrencySymbol()}} {{number_format($item->price * $item->pivot->qty  * $order->rating_default_currency,2)}}</h6>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <h3 class="order-h3">Subtotal</h3>
+                                </td>
+                                <td>
+                                    <h3 class="order-h3">{{$order->paymentCurrencySymbol()}} {{number_format($order->subtotal * $order->rating_default_currency,2)}}</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <h3 class="order-h3">Discount</h3>
+                                </td>
+                                <td>
+                                    <h3 class="order-h3">{{$order->paymentCurrencySymbol()}} {{number_format($order->discount * $order->rating_default_currency,2)}}</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <h3 class="order-h3">Tax</h3>
+                                </td>
+                                <td>
+                                    <h3 class="order-h3">{{$order->paymentCurrencySymbol()}} {{number_format($order->tax * $order->rating_default_currency,2)}}</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <h3 class="order-h3">Shipping</h3>
+                                </td>
+                                <td>
+                                    <h3 class="order-h3">{{$order->paymentCurrencySymbol()}} {{number_format($order->shipping * $order->rating_default_currency,2)}}</h3>
+                                </td>
+                            </tr>
 
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <h3 class="order-h3">Total</h3>
+                                </td>
+                                <td>
+                                    <h3 class="order-h3">{{$order->paymentCurrencySymbol()}} {{number_format($order->total * $order->rating_default_currency,2)}}</h3>
+                                </td>
+                            </tr>
+                            @if($order->payment_currency != "USD")
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <h3 class="order-h3">Total</h3>
+                                </td>
+                                <td>
+                                    <h3 class="order-h3">{{$order->paymentCurrencySymbol()}} {{number_format($order->total * $order->rating_default_currency,2)}}</h3>
+                                </td>
+                            </tr>
+                                @endif
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <div class="tx-center">
+                                <h4 class="card-title mg-b-0">transactions</h4>
+
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0 text-md-nowrap">
                                     <thead>
                                     <tr>
-                                        <th>رقم العملية</th>
-                                        <th>الاجمالى</th>
-                                        <th>الحالة</th>
-                                        <th>التاريخ</th>
-                                        <th>الإجراءات</th>
+                                        <td>Ref</td>
+                                        <td>Date</td>
+                                        <td>Status</td>
+                                        <td>Des</td>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse ($orders as $order)
+                                    @foreach($order->transactions as $transaction)
                                         <tr>
-                                            <th>{{$order->ref_id}}</th>
-                                            <th>{{$order->total }}</th>
-                                            <td>{{$order->order_status}}</td>
-                                            <td>{{$order->created_at->format('Y-m-d')}}</td>
                                             <td>
-                                                <a class="fa fa-eye fa-fw text-primary"
-                                                   href="{{ route('orders.show', setCrypt($order->id) ) }}"></a>
-                                                <a class="fa fa-edit fa-fw text-primary"
-                                                   href="{{ route('admin.categories.edit', $order->id) }}"></a>
-                                                <a href="" class="fa fa-trash fa-fw text-danger ml-1 delete_message"
-                                                   data-title="حذف قسم"
-                                                   data-description="هل تريد حذف هذا القسم ؟"
-                                                   data-toggle="modal" data-target="#exampleModal"
-                                                   data-id="{{ $order->id }}"></a>
+                                                {{$transaction->transaction_number}}
                                             </td>
+                                            <td>
+                                                {{$transaction->created_at->format('Y-m-d')}}
+                                            </td>
+                                            <td>
+                                                {!!  $order->status($transaction->transaction)!!}
+                                            </td>
+                                            <td>{{$transaction->payment_result}}</td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="4" class="">لا يوجد طلبات حتى الآن</td>
-                                        </tr>
-
-                                    @endforelse
-
+                                        @if($transaction->transaction == \App\Models\Order::FINISHED && (5 - \Carbon\Carbon::now()->diffInDays($transaction->created_at->format('Y-m-d'))) >= 0 && $loop->last)
+                                            <tr>
+                                                <td colspan="2">you Can Return Order
+                                                    in {{(5 - \Carbon\Carbon::now()->diffInDays($transaction->created_at->format('Y-m-d')))}}
+                                                    Days
+                                                </td>
+                                                <td colspan="2">
+                                                    <form action="{{route('orders.update',setCrypt($order->id))}}"
+                                                          method="POST" >
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-sm btn-danger tx-white">
+                                                            Return Order
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Language;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CreateLangEvent
+class CreateLangEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,10 +21,18 @@ class CreateLangEvent
      *
      * @return void
      */
-    public function __construct()
+    public $group_id;
+    public $user;
+    public $message;
+
+    public function __construct($group_id ,User $user,$message)
     {
-        //
+        $this->group_id = $group_id;
+        $this->user = $user;
+        $this->message = $message;
+
     }
+
 
     /**
      * Get the channels the event should broadcast on.
@@ -31,6 +41,6 @@ class CreateLangEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('chat.' . $this->group_id);
     }
 }

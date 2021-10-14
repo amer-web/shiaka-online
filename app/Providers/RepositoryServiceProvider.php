@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Eloquent\OrderRepository;
+use App\Http\Interfaces\OrderRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -23,6 +25,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(OrderRepositoryInterface::class,OrderRepository::class);
     }
 }

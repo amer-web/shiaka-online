@@ -71,4 +71,5 @@
     <!-- main-content closed -->
 @endsection
 @section('js')
+
 @endsection

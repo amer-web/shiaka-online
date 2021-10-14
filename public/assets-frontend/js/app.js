@@ -33,11 +33,12 @@ $(function () {
     $('#zoom-pro').elevateZoom({
         gallery: 'gallery',
         galleryActiveClass: 'active',
-        borderSize: 1,
-        zoomWindowWidth: 540,
-        zoomWindowHeight: 540,
-        zoomWindowOffetx: 10,
-        borderColour: '#e9e9e9',
+        zoomEnabled: false,
+        // borderSize: 1,
+        // zoomWindowWidth: 540,
+        // zoomWindowHeight: 540,
+        // zoomWindowOffetx: 10,
+        // borderColour: '#e9e9e9',
     });
 
     // For `modals` we don't want to enable `zoom window`.
@@ -239,51 +240,51 @@ $(function () {
     /**
      * Attach Click Event on Quantity buttons
      */
-    const attachClickQuantityButton = function () {
-        let $currentTextField,currentVal;
-        $('.plus-a').each(function () {
-            $(this).on('click', function () {
-                let $currentTextField = $(this).prev();
-                let currentVal = parseInt($currentTextField.val());
-                /*
-                 * Format values
-                 * In JS if variable is not converted to number then by default variable is NaN.
-                 * We known JS has Truthy & Falsey values.
-                 * By default NaN (e.g. the result of 1/0) is false so its convert to true and expression
-                 * becomes true.
-                 */
-                if (!currentVal || currentVal === '' || currentVal === 'NaN' || currentVal === 0) {
-                    // if value is NaN
-                    $currentTextField.val(1);
-                }
-                // Compare and add 1 if the condition is satisfy
-                else if (currentVal < $(this).data('max')) {
-                    $currentTextField.val(currentVal + 1);
-                }
-            });
-        });
-        $('.minus-a').each(function () {
-            $(this).on('click', function () {
-                $currentTextField = $(this).closest('div').find('input');
-                currentVal = parseInt($currentTextField.val());
-                /*
-                 * Format values
-                 * In JS if variable is not convert to number then by default variable is NaN.
-                 * We known JS has Truthy & Falsey values.
-                 * By default NaN (e.g. the result of 1/0) is false so its convert to true and expression
-                 * becomes true.
-                 */
-                if (!currentVal || currentVal === '' || currentVal === 'NaN' || currentVal === 0) {
-                    // if value is NaN
-                    $currentTextField.val(1);
-                }
-                // Compare and minus 1 if the condition is satisfy
-                else if (currentVal > $(this).data('min')) {
-                    $currentTextField.val(currentVal - 1);
-                }
-            });
-        });
-    };
+    // const attachClickQuantityButton = function () {
+    //     let $currentTextField,currentVal;
+    //     $('.plus-a').each(function () {
+    //         $(this).on('click', function () {
+    //             let $currentTextField = $(this).prev();
+    //             let currentVal = parseInt($currentTextField.val());
+    //             /*
+    //              * Format values
+    //              * In JS if variable is not converted to number then by default variable is NaN.
+    //              * We known JS has Truthy & Falsey values.
+    //              * By default NaN (e.g. the result of 1/0) is false so its convert to true and expression
+    //              * becomes true.
+    //              */
+    //             if (!currentVal || currentVal === '' || currentVal === 'NaN' || currentVal === 0) {
+    //                 // if value is NaN
+    //                 $currentTextField.val(1);
+    //             }
+    //             // Compare and add 1 if the condition is satisfy
+    //             else if (currentVal < $(this).data('max')) {
+    //                 $currentTextField.val(currentVal + 1);
+    //             }
+    //         });
+    //     });
+    //     $('.minus-a').each(function () {
+    //         $(this).on('click', function () {
+    //             $currentTextField = $(this).closest('div').find('input');
+    //             currentVal = parseInt($currentTextField.val());
+    //             /*
+    //              * Format values
+    //              * In JS if variable is not convert to number then by default variable is NaN.
+    //              * We known JS has Truthy & Falsey values.
+    //              * By default NaN (e.g. the result of 1/0) is false so its convert to true and expression
+    //              * becomes true.
+    //              */
+    //             if (!currentVal || currentVal === '' || currentVal === 'NaN' || currentVal === 0) {
+    //                 // if value is NaN
+    //                 $currentTextField.val(1);
+    //             }
+    //             // Compare and minus 1 if the condition is satisfy
+    //             else if (currentVal > $(this).data('min')) {
+    //                 $currentTextField.val(currentVal - 1);
+    //             }
+    //         });
+    //     });
+    // };
 
     /**
      * Window Resize Breakpoint Function
@@ -328,7 +329,7 @@ $(function () {
        // Manually Restart Pace-js when we change any tab
         manuallyRestartProgress();
         // Attach Click Event on Quantity buttons
-        attachClickQuantityButton();
+        // attachClickQuantityButton();
         // Window Resize Breakpoint Function
         windowResizeBreakpoint();
     });

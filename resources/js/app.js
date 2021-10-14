@@ -1,10 +1,7 @@
-<<<<<<< HEAD
+
 require('./bootstrap');
 
 
-
-
-=======
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13,7 +10,7 @@ require('./bootstrap');
 
  import Vue from 'vue'
  window.Vue = Vue;
- require('./bootstrap'); 
+ require('./bootstrap');
 
 /**
  * The following block of code may be used to automatically register your
@@ -41,4 +38,4 @@ Vue.component('tree-view', require('./components/tree-view/tree-view.vue').defau
 const app = new Vue({
     el: '#app',
 });
->>>>>>> 4cc0fdf4963698c3b557caa4c42c821eda32f0d2
+

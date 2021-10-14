@@ -6,22 +6,27 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-openssl": "*",
         "astrotomic/laravel-translatable": "^11.9",
-<<<<<<< HEAD
         "beyondcode/laravel-websockets": "^1.12",
-=======
         "cviebrock/eloquent-sluggable": "^8.0",
->>>>>>> 4cc0fdf4963698c3b557caa4c42c821eda32f0d2
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "hardevine/shoppingcart": "^3.0",
+        "intervention/image": "^2.6",
+        "intervention/imagecache": "^2.5",
+        "jantinnerezo/livewire-alert": "^2.1",
         "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^8.40",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "livewire/livewire": "^2.5",
+        "league/omnipay": "^3.2",
+        "livewire/livewire": "^2.6",
         "mcamara/laravel-localization": "^1.6",
+        "myfatoorah/omnipay": "dev-master",
+        "omnipay/paypal": "^3.0",
         "pusher/pusher-php-server": "~3.0",
         "santigarcor/laratrust": "^6.3",
         "torann/currency": "^1.1"
@@ -37,11 +42,15 @@
         "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
+        "files" : [
+            "app/Helper/GeneralHelper.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
+
     },
     "autoload-dev": {
         "psr-4": {

@@ -15,6 +15,10 @@ class CreateOrderTransactionsTable extends Migration
     {
         Schema::create('order_transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->string('transaction')->nullable();
+            $table->string('transaction_number')->nullable();
+            $table->string('payment_result')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,19 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('ref_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('shipping_company_id')->nullable()->constrained('shipping_companies')->nullOnDelete();
+            $table->foreignId('user_address_id')->nullable()->constrained('user_addresses')->nullOnDelete();
+            $table->double('subtotal')->default(0.00);
+            $table->string('discount_code')->nullable();
+            $table->double('discount')->default(0.00);
+            $table->double('tax')->default(0.00);
+            $table->double('shipping')->default(0.00);
+            $table->double('total')->default(0.00);
+            $table->string('currency')->default('USD');
+            $table->unsignedTinyInteger('order_status')->default(0);
+
             $table->timestamps();
         });
     }

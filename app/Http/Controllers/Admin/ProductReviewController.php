@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\ProductReview;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,9 @@ class ProductReviewController extends Controller
      */
     public function index()
     {
+//        return Product::with('reviews')->find(520);
+        return $pro = Product::withAvg('reviews','rating')->withCount('reviews' )->find(520);
+        return $pro->reviews;
         $product_reviews = $this->product_review->paginate(10);
         return view('admin.product_reviews.index', compact('product_reviews'));
     }

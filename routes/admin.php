@@ -5,14 +5,12 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\LanguagesController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-<<<<<<< HEAD
 use App\Http\Controllers\Admin\ProductCouponController;
 use App\Http\Controllers\Admin\ProductReviewController;
 use App\Http\Controllers\Admin\ShippingCompanyController;
-=======
 use App\Http\Controllers\Auth\LoginController;
->>>>>>> 4cc0fdf4963698c3b557caa4c42c821eda32f0d2
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,38 +25,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('admin.')->prefix('admin')->group(function () {
-<<<<<<< HEAD
-    Route::get('/', [IndexController::class, 'index'])->name('index');
     // Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     // Route::post('login', 'Auth\LoginController@login')->name('login');
     // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     // Route::post('register', 'Auth\RegisterController@register');
-    Route::resource('languages', LanguagesController::class);
-    Route::resource('categories', CategoryController::class);
-    Route::resource('products', ProductController::class);
-
-    // Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-    Route::resource('product_coupons', ProductCouponController::class);
-    Route::resource('product_reviews', ProductReviewController::class);
-    Route::resource('customers',CustomerController::class);
-    Route::resource('shipping_companies',ShippingCompanyController::class);
-    Route::post('customer_addresses/get_states',[CustomerAddressController::class,'get_states'])->name('customer_addresses.get_states');
-    Route::post('customer_addresses/get_cities',[CustomerAddressController::class,'get_cities'])->name('customer_addresses.get_cities');
-    Route::resource('customer_addresses',CustomerAddressController::class);
-    Route::get('customer_addresses/create/{id}',[CustomerAddressController::class,'create'])->name('customer_addresses.create');
-
-=======
-    Route::get('login', [LoginController::class, 'showLoginFormAdmin'])->name('login');
     // Route::post('login', 'Auth\LoginController@login')->name('login');
     // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     // Route::post('register', 'Auth\RegisterController@register');
-
-    Route::middleware(['auth','role:admin'])->group(function () {
+    // Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    // Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
         Route::resource('languages', LanguagesController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('products', ProductController::class);
-        // Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+        Route::post('products/deleteImage/{id}', [ProductController::class,'delete_image'])->name('product_delete_image');
+        Route::resource('product_coupons', ProductCouponController::class);
+        Route::resource('product_reviews', ProductReviewController::class);
+        Route::resource('customers', CustomerController::class);
+        Route::post('customer_addresses/get_states', [CustomerAddressController::class, 'get_states'])->name('customer_addresses.get_states');
+        Route::post('customer_addresses/get_cities', [CustomerAddressController::class, 'get_cities'])->name('customer_addresses.get_cities');
+        Route::resource('customer_addresses', CustomerAddressController::class);
+        Route::get('customer_addresses/create/{id}', [CustomerAddressController::class, 'create'])->name('customer_addresses.create');
+        Route::resource('shipping_companies', ShippingCompanyController::class);
+        Route::resource('orders',OrderController::class);
     });
->>>>>>> 4cc0fdf4963698c3b557caa4c42c821eda32f0d2
+    Route::get('login', [LoginController::class, 'showLoginFormAdmin'])->name('login');
 });

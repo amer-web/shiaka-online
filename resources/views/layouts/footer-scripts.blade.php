@@ -1,9 +1,10 @@
 <!-- Back-to-top -->
 <a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
 <!-- JQuery min js -->
-<script src="{{URL::asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+{{--<script src="{{URL::asset('assets/plugins/jquery/jquery.min.js')}}"></script>--}}
+<script src="{{ asset('js/app.js') }}"></script>
 <!-- Bootstrap Bundle js -->
-<script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+{{--<script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
 <!-- Ionicons js -->
 <script src="{{URL::asset('assets/plugins/ionicons/ionicons.js')}}"></script>
 <!-- Moment js -->
@@ -31,8 +32,8 @@
 <!-- Sticky js -->
 <script src="{{URL::asset('assets/js/sticky.js')}}"></script>
 <!-- custom js -->
+
 <script src="{{URL::asset('assets/js/custom.js')}}"></script><!-- Left-menu js-->
-<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{URL::asset('assets/plugins/side-menu/sidemenu.js')}}"></script>
 <script>
      @if(Session::has('success'))
